@@ -11,7 +11,7 @@ class MatrixComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, int) and not isinstance(number, float):
+            if not isinstance(number, (int, float)):
                 raise TypeError("The number attribute must be of type int() or float()")
             else:
                 self.number = number

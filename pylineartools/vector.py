@@ -17,7 +17,7 @@ class VectorComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, int) and not isinstance(number, float):
+            if not isinstance(number, (int, float)):
                 raise TypeError("Component creation error: the VectorComponent.number attribute must be an int() or float()\n       In: self.number = number\n       number is a %s" % type(number))
             else:
                 self.number = number
