@@ -9,7 +9,7 @@ class VectorComponent:
         """
 
         try:
-            if not isinstance(index, int):
+            if not isinstance(index, int) or isinstance(number, bool):
                 raise TypeError("Component creation error: the VectorComponent.index attribute must be an int()\n       In: self.index = index\n       index is a %s" % type(index))
             else:
                 self.index = index
@@ -17,7 +17,7 @@ class VectorComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, (int, float)):
+            if not isinstance(number, (int, float)) or isinstance(number, bool):
                 raise TypeError("Component creation error: the VectorComponent.number attribute must be an int() or float()\n       In: self.number = number\n       number is a %s" % type(number))
             else:
                 self.number = number

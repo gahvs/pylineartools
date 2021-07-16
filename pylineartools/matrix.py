@@ -2,7 +2,7 @@ class MatrixComponent:
 
     def __init__(self, row, col, number) -> None:
         try:
-            if not isinstance(row, int) and not isinstance(col, int):
+            if not all(isinstance(arg, int) for arg in (row, col)) or any(isinstance(arg, bool) for arg in (row, col)):
                 raise TypeError("The row and col attributes must be of type int()")
             else:
                 self.row = row
@@ -11,7 +11,7 @@ class MatrixComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, (int, float)):
+            if not isinstance(number, (int, float)) or isinstance(number, bool):
                 raise TypeError("The number attribute must be of type int() or float()")
             else:
                 self.number = number
