@@ -1,14 +1,13 @@
-from pylineartools.matrix import Matrix, MatrixComponent
+from pylineartools.vector import Vector, VectorComponent
 
-matriz = Matrix()
-matriz.add(component=MatrixComponent(row=1, col=1, number=1))
-matriz.add(component=MatrixComponent(row=2, col=1, number=1))
-matriz.add(component=MatrixComponent(row=3, col=1, number=1))
-matriz.add(component=MatrixComponent(row=1, col=2, number=2))
-matriz.add(component=MatrixComponent(row=1, col=3, number=3))
-matriz.add(component=MatrixComponent(row=4, col=2, number=2))
+v1 = Vector()
+v1.add(component=VectorComponent(index=1, number=10))
+v1.add(component=VectorComponent(index=2, number=20))
+v1.add(component=VectorComponent(index=3, number=30))
 
-restriction = matriz.numbers(rowPart=[4], colPart=",")
+v2 = Vector.copy(vector=v1)
 
-print(restriction)
-print(matriz.matrix()[4])
+vSum = Vector.sum(v1, v2)
+print(v1.vector())
+print(v2.vector())
+print(vSum.vector())

@@ -158,8 +158,12 @@ class Vector:
     def sum(vec_x, vec_y):
         """
             Returns the sum of two vectors in an instance of Vector()
+            This operations only makes sense if both vectors are defined on the same set of indices.
         """
-        pass
+        v = Vector()
+        v_x, v_y = vec_x.vector(), vec_y.vector()
+        for k in vec_x.indexes(): v.add(VectorComponent(k, v_x[k] + v_y[k])) 
+        return v
 
     @staticmethod
     def product(vec_x, vec_y):
