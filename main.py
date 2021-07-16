@@ -1,4 +1,4 @@
-from algebra.matrix import Matrix, MatrixComponent
+from pylineartools.matrix import Matrix, MatrixComponent
 
 matriz = Matrix()
 matriz.add(component=MatrixComponent(row=1, col=1, number=1))
