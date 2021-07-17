@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import reduce
 
 class VectorComponent:
@@ -52,7 +53,7 @@ class Vector:
         """
             Returns the vector, in a dictionary {index: value}
         """
-        return self.__vector
+        return deepcopy(self.__vector)
     
     def indexes(self) -> tuple:
         """

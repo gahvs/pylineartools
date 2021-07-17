@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 class MatrixComponent:
 
     def __init__(self, row, col, number) -> None:
@@ -42,7 +44,7 @@ class Matrix:
         for row in self.__rows:
             for col in self.__cols:
                 if not col in self.__matrix[row]:
-                    self.__matrix[row][col] = 0
+                    self.__matrix[row][col] = None
 
     def add(self, component) -> None:
         """
@@ -56,7 +58,8 @@ class Matrix:
             else:
                 if component.row in self.__matrix:
                     if component.col in self.__matrix[component.row]:
-                        return # throw error? (component already exists)
+                        if self.__matrix[component.row][component.col] is not None:
+                            return # throw error? (component already exists)
                 else:
                     self.__matrix[component.row] = dict()
                 
@@ -80,7 +83,17 @@ class Matrix:
         """
             Returns the matrix in a dict {row: {col: number}}
         """
-        return self.__matrix
+        return deepcopy(self.__matrix)
+
+    def indexes(self) -> list:
+        """
+            Returns array indices in dicts {row: row, col: col} for all component.
+        """
+        indexes = list()
+        for rowKey in self.__matrix:
+            for colKey in self.__matrix[rowKey]:
+                indexes.append({'row':rowKey,'col':colKey})
+        return indexes
 
     def numbers(self, rowPart, colPart):
         """
@@ -91,6 +104,18 @@ class Matrix:
         if colPart == ",": colPart = self.__cols[:]
         return [[ self.__matrix[row][col] for col in colPart] for row in rowPart]
 
+    def getRow(self, row) -> list:
+        """
+            Returns the corresponding row of the matrix.
+        """
+        return [self.__matrix[row][k] for k in self.__matrix[row]]
+
+    def getCol(self, col) -> list:
+        """
+            Returns the corresponding column of the matrix.
+        """
+        return [self.__matrix[k][col] for k in self.__matrix]
+
     def component(self, row, col):
         """
             Returns the matrix[row][col] number if row and col 
@@ -100,7 +125,23 @@ class Matrix:
             if col in self.__matrix[row]:
                 return self.__matrix[row][col]
         return None
-    
+
+    def dimensions(self) -> dict:
+        """
+            Returns the dimensions of the matrix, that is, the number of rows and the number of columns. 
+        """
+        return {'rows':len(self.__rows),'cols':len(self.__cols)}
+
+    def isNull(self) -> bool:
+        """
+            Indicates whether the array is null. 
+            A matrix M defined over NxM is null if M[n][m] is 0 for all n, m belonging to N and M, respectively.
+        """
+        for row in self.__rows:
+            for col in self.__cols:
+                if self.__matrix[row][col] != 0 and self.__matrix[row][col] != None: return False
+        return True
+
     def restriction(self, rowPart, colPart):
         """
             Returns an array defined over all p and q in rowPart and colPart, respectively.
@@ -113,3 +154,45 @@ class Matrix:
             for col in colPart:
                 restriction.add(MatrixComponent(row, col, self.__matrix[row][col]))
         return restriction
+    
+    def multiplyByEscalar(self, escalar):
+        """
+            Multiplies each component of the matrix by a scalar.
+        """
+        for row in self.__rows:
+            for col in self.__cols:
+                self.__matrix[row][col] *= escalar
+    
+    def divideByEscalar(self, escalar):
+        """
+            Divides each component of the matrix by a scalar.
+        """
+        for row in self.__rows:
+            for col in self.__cols:
+                self.__matrix[row][col] /= escalar
+
+    @staticmethod
+    def copy(matrix):
+        """
+            Returns a matrix's copy.
+        """
+        copy = Matrix()
+        for i in matrix.indexes():
+            copy.add(MatrixComponent(i['row'], i['col'], matrix.component(i['row'], i['col'])))
+        return copy
+
+    @staticmethod
+    def product(mat_x, mat_y):
+        """
+            Calculates the product of a matrix defined over L x M by a matrix defined over M x N.
+            The product is a matrix defined over L x N.
+        """ 
+        product = Matrix()
+        rows = set(map(lambda i: i['row'], mat_x.indexes()))
+        cols = set(map(lambda i: i['col'], mat_y.indexes()))
+        for i in rows:
+            for j in cols:
+                mult = [a * b for a, b in zip(mat_x.getRow(i), mat_y.getCol(j))]
+                product.add(MatrixComponent(i, j, sum(mult)))
+        
+        return product
