@@ -1,4 +1,5 @@
 from copy import deepcopy
+from random import randint, random
 
 class MatrixComponent:
 
@@ -23,12 +24,24 @@ class MatrixComponent:
 
 class Matrix:
 
-    def __init__(self) -> None:
+    def __init__(self, rows=0, cols=0) -> None:
         self.__rows = list()
         self.__cols = list()
         self.__matrix = dict()
-    
-    def __updateRowColList(self, row, col):
+
+        if all(isinstance(arg, int) for arg in (rows, cols)):
+            if rows or cols: self.__initialize(rows=rows, cols=cols)
+
+    def __initialize(self, rows, cols) -> None:
+        """
+                Constructive method, which creates a matrix with the dimensions received.
+        """
+        for row in range(1, rows + 1):
+            if not row in self.__matrix: self.__matrix[row] = dict()
+            for col in range(1, cols + 1):
+                self.__matrix[row][col] = None
+
+    def __updateRowColList(self, row, col) -> None:
         """
             Add the row and column to their respective lists if they do not already contain them.
         """
@@ -78,6 +91,14 @@ class Matrix:
         if row in self.__matrix:
             if col in self.__matrix[row]:
                 self.__matrix[row][col] = number
+
+    def randomize(self, integer=False) -> None:
+        """
+            Populate the array with pseudorandom values.
+            By default the values ​​are floating points [0:1], alternatively they can be set to be integers [1:100]
+        """
+        for i in self.indexes(): 
+            self.__matrix[i['row']][i['col']] = randint(0, 100) if integer else random()
 
     def matrix(self) -> dict:
         """
