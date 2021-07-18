@@ -1,4 +1,17 @@
-from pylineartools import Vector
+from pylineartools import matrix
+from pylineartools.matrix import MatrixComponent
+from pylineartools import Matrix 
 
-v = Vector(1, 2, 3, [x for x in range(4, 9)], 9, 10)
-print(v.numbers())
+m = Matrix(5, 5)
+m.randomize(integer=True)
+
+for line in m.numbers(): print(line)
+print()
+
+identity = m.identity()
+for line in identity.numbers(): print(line)
+print()
+
+product = Matrix.product(m, identity)
+for line in product.numbers(): print(line)
+print()

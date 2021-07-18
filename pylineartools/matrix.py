@@ -40,6 +40,7 @@ class Matrix:
             if not row in self.__matrix: self.__matrix[row] = dict()
             for col in range(1, cols + 1):
                 self.__matrix[row][col] = None
+                self.__updateRowColList(row, col)
 
     def __updateRowColList(self, row, col) -> None:
         """
@@ -116,14 +117,12 @@ class Matrix:
                 indexes.append({'row':rowKey,'col':colKey})
         return indexes
 
-    def numbers(self, rowPart, colPart):
+    def numbers(self):
         """
             Returns a list of values ​​only from the array defined on rowPart and colPart.
             When you want the part to be the whole, rowPart or colPart must be ","
         """
-        if rowPart == ",": rowPart = self.__rows[:]
-        if colPart == ",": colPart = self.__cols[:]
-        return [[ self.__matrix[row][col] for col in colPart] for row in rowPart]
+        return [[self.__matrix[row][col] for col in self.__cols] for row in self.__rows]
 
     def getRow(self, row) -> list:
         """
@@ -162,6 +161,19 @@ class Matrix:
             for col in self.__cols:
                 if self.__matrix[row][col] != 0 and self.__matrix[row][col] != None: return False
         return True
+
+    def identity(self):
+        """
+            Returns the identity matrix of the matrix, if it is a square matrix.
+        """
+        if len(self.__rows) == len(self.__cols):
+            identity = Matrix()
+            for i in self.indexes():
+                if i['row'] == i['col']:
+                    identity.add(MatrixComponent(i['row'], i['col'], 1))
+                else:
+                    identity.add(MatrixComponent(i['row'], i['col'], 0))
+            return identity
 
     def restriction(self, rowPart, colPart):
         """
