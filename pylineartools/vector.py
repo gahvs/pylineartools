@@ -1,3 +1,4 @@
+from copy import deepcopy
 from functools import reduce
 
 class VectorComponent:
@@ -27,8 +28,24 @@ class VectorComponent:
 
 class Vector:
 
-    def __init__(self) -> None:
+    def __init__(self, *args) -> None:
         self.__vector = dict()
+        
+        if len(args): self.__initialize(args)
+
+    def __initialize(self, args):
+        """
+            Initializes the array with the arguments received in the constructor.
+        """
+        i = 0
+        for arg in args:
+            i += 1
+            if isinstance(arg, list):
+                for x in arg:
+                    self.add(VectorComponent(i + 1, x))
+                    i += 1
+            else:   
+                self.add(VectorComponent(i + 1, arg))
 
     def add(self, component) -> None:
         """
@@ -38,6 +55,8 @@ class Vector:
             if not isinstance(component, VectorComponent):
                 raise TypeError
             else:
+                if component.index in self.__vector:
+                    return # (componenet already exists)
                 self.__vector[component.index] = component.number
         except TypeError:
             pass
@@ -52,7 +71,7 @@ class Vector:
         """
             Returns the vector, in a dictionary {index: value}
         """
-        return self.__vector
+        return deepcopy(self.__vector)
     
     def indexes(self) -> tuple:
         """
