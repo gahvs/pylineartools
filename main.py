@@ -1,5 +1,3 @@
-from pylineartools import matrix
-from pylineartools.matrix import MatrixComponent
 from pylineartools import Matrix 
 
 m = Matrix(5, 5)
