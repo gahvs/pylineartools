@@ -42,10 +42,10 @@ class Vector:
             i += 1
             if isinstance(arg, list):
                 for x in arg:
-                    self.add(VectorComponent(i + 1, x))
+                    self.add(VectorComponent(i, x))
                     i += 1
             else:   
-                self.add(VectorComponent(i + 1, arg))
+                self.add(VectorComponent(i, arg))
 
     def add(self, component) -> None:
         """
