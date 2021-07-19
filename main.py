@@ -1,4 +1,5 @@
-from pylineartools import Vector
+from pylineartools import Matrix
 
-v = Vector(1, 2, 3, [x for x in range(4, 9)], 9, 10)
-print(v.numbers())
+m = Matrix(3, 3)
+m.randomize(integer=True)
+print(m.numbers())
