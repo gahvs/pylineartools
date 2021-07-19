@@ -191,4 +191,4 @@ class Vector:
             This operations only makes sense if both vectors are defined on the same set of indices.
         """
         v_x, v_y = vec_x.vector(), vec_y.vector()
-        return reduce(lambda v, v_ : v + v_, [v_x[k] * v_y[k] for k in vec_x.indexes()])
+        return reduce(lambda v, v_ : v + v_, [v_x[k] * v_y[k] for k in vec_x.indexes()])    

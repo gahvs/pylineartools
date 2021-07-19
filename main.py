@@ -1,5 +1,15 @@
-from pylineartools import Matrix
+from pylineartools import Matrix 
 
-m = Matrix(3, 3)
+m = Matrix(5, 5)
 m.randomize(integer=True)
-print(m.numbers())
+
+for line in m.numbers(): print(line)
+print()
+
+identity = m.identity()
+for line in identity.numbers(): print(line)
+print()
+
+product = Matrix.product(m, identity)
+for line in product.numbers(): print(line)
+print()
