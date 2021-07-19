@@ -6,10 +6,6 @@ m.randomize(integer=True)
 for line in m.numbers(): print(line)
 print()
 
-identity = m.identity()
-for line in identity.numbers(): print(line)
-print()
-
-product = Matrix.product(m, identity)
-for line in product.numbers(): print(line)
+transposed = m.transpose()
+for line in transposed.numbers(): print(line)
 print()

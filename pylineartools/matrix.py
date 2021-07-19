@@ -162,6 +162,15 @@ class Matrix:
                 if self.__matrix[row][col] != 0 and self.__matrix[row][col] != None: return False
         return True
 
+    def transpose(self):
+        """
+            Transposes the matrix.
+        """
+        copy = Matrix.copy(self)
+        for i in copy.indexes():
+            self.change(i['row'], i['col'], copy.component(i['col'], i['row']))
+        return copy
+
     def identity(self):
         """
             Returns the identity matrix of the matrix, if it is a square matrix.
