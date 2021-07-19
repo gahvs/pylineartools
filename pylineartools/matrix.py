@@ -117,7 +117,7 @@ class Matrix:
                 indexes.append({'row':rowKey,'col':colKey})
         return indexes
 
-    def numbers(self):
+    def values(self):
         """
             Returns a list of values ​​only from the array defined on rowPart and colPart.
             When you want the part to be the whole, rowPart or colPart must be ","

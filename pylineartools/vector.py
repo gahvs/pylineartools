@@ -79,7 +79,7 @@ class Vector:
         """
         return tuple(self.__vector.keys())
     
-    def numbers(self) -> tuple:
+    def values(self) -> tuple:
         """
             Returns a tuple with all vector values
         """
