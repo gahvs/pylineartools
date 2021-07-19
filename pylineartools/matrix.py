@@ -162,6 +162,15 @@ class Matrix:
                 if self.__matrix[row][col] != 0 and self.__matrix[row][col] != None: return False
         return True
 
+    def copy(self):
+        """
+            Returns a matrix's copy.
+        """
+        copy = Matrix()
+        for i in self.indexes():
+            copy.add(MatrixComponent(i['row'], i['col'], self.component(i['row'], i['col'])))
+        return copy
+
     def identity(self):
         """
             Returns the identity matrix of the matrix, if it is a square matrix.
@@ -174,6 +183,16 @@ class Matrix:
                 else:
                     identity.add(MatrixComponent(i['row'], i['col'], 0))
             return identity
+
+    def transpose(self):
+        """
+            Returns a matrix transposition.
+        """
+        transposed = self.copy()
+        for i in self.indexes():
+            r, c = i['row'], i['col']
+            transposed.__matrix[c][r] = self.__matrix[r][c]
+        return transposed
 
     def restriction(self, rowPart, colPart):
         """
@@ -203,16 +222,6 @@ class Matrix:
         for row in self.__rows:
             for col in self.__cols:
                 self.__matrix[row][col] /= escalar
-
-    @staticmethod
-    def copy(matrix):
-        """
-            Returns a matrix's copy.
-        """
-        copy = Matrix()
-        for i in matrix.indexes():
-            copy.add(MatrixComponent(i['row'], i['col'], matrix.component(i['row'], i['col'])))
-        return copy
 
     @staticmethod
     def product(mat_x, mat_y):
