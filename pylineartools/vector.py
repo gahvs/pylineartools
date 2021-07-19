@@ -3,14 +3,14 @@ from functools import reduce
 
 class VectorComponent:
 
-    def __init__(self, index, number) -> None:
+    def __init__(self, index, value) -> None:
 
         """
             An auxiliary class, creates an attribute that is passed as a component of a vector of the Vector class.
         """
 
         try:
-            if not isinstance(index, int) or isinstance(number, bool):
+            if not isinstance(index, int) or isinstance(value, bool):
                 raise TypeError("Component creation error: the VectorComponent.index attribute must be an int()\n       In: self.index = index\n       index is a %s" % type(index))
             else:
                 self.index = index
@@ -18,10 +18,10 @@ class VectorComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, (int, float)) or isinstance(number, bool):
-                raise TypeError("Component creation error: the VectorComponent.number attribute must be an int() or float()\n       In: self.number = number\n       number is a %s" % type(number))
+            if not isinstance(value, (int, float)) or isinstance(value, bool):
+                raise TypeError("Component creation error: the VectorComponent.value attribute must be an int() or float()\n       In: self.value = value\n       value is a %s" % type(value))
             else:
-                self.number = number
+                self.value = value
         except TypeError as err:
             print(err)
             exit()
@@ -57,15 +57,15 @@ class Vector:
             else:
                 if component.index in self.__vector:
                     return # (componenet already exists)
-                self.__vector[component.index] = component.number
+                self.__vector[component.index] = component.value
         except TypeError:
             pass
     
-    def change(self, index, number) -> None:
+    def change(self, index, value) -> None:
         """
             Change the value of vector[n] if n exists in vector.indexes
         """
-        if index in self.__vector: self.__vector[index] = number
+        if index in self.__vector: self.__vector[index] = value
 
     def vector(self) -> dict:
         """

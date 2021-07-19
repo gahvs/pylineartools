@@ -3,7 +3,7 @@ from random import randint, random
 
 class MatrixComponent:
 
-    def __init__(self, row, col, number) -> None:
+    def __init__(self, row, col, value) -> None:
         try:
             if not all(isinstance(arg, int) for arg in (row, col)) or any(isinstance(arg, bool) for arg in (row, col)):
                 raise TypeError("The row and col attributes must be of type int()")
@@ -14,10 +14,10 @@ class MatrixComponent:
             print(err)
             exit()
         try:
-            if not isinstance(number, (int, float)) or isinstance(number, bool):
-                raise TypeError("The number attribute must be of type int() or float()")
+            if not isinstance(value, (int, float)) or isinstance(value, bool):
+                raise TypeError("The value attribute must be of type int() or float()")
             else:
-                self.number = number
+                self.value = value
         except TypeError as err:
             print(err)
             exit()
@@ -78,20 +78,20 @@ class Matrix:
                     self.__matrix[component.row] = dict()
                 
                 self.__updateRowColList(row=component.row, col=component.col)
-                self.__matrix[component.row][component.col] = component.number
+                self.__matrix[component.row][component.col] = component.value
                 self.__fill()
 
         except TypeError:
             pass
     
-    def change(self, row, col, number) -> None:
+    def change(self, row, col, value) -> None:
         """
             Change the value of matrix[row][col] if row and col 
             are part of the set of row indices and column indices, respectively.
         """
         if row in self.__matrix:
             if col in self.__matrix[row]:
-                self.__matrix[row][col] = number
+                self.__matrix[row][col] = value
 
     def randomize(self, integer=False) -> None:
         """
