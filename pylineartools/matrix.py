@@ -53,7 +53,7 @@ class Matrix:
         """
             When a new column is added this method is called. 
             Its function is to fill the other columns with the 
-            new component added (and with the number = 0)
+            new component added (and with the number = None)
         """
         for row in self.__rows:
             for col in self.__cols:
