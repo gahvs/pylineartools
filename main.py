@@ -1,6 +1,6 @@
-from pylineartools import Matrix 
+from pylineartools import Matrix
 
-m = Matrix(5, 5)
+m = Matrix(2, 4)
 m.randomize(integer=True)
 
 for line in m.numbers(): print(line)
