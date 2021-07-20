@@ -76,7 +76,7 @@ v1.values(), v2.values(), v3.values()
 
 Para adicionar novos componentes em um vetor, usamos o método add(). Esse método exige que o argumento passado seja um objeto da classe VectorComponent. 
 
-Veja no exemplo abaixo um vetor em branco criado para então tendo seus componentes adicionados. Neste exemplo introduzimos o método indexes(), que retorna a lista de índices do vetor.
+Veja no exemplo abaixo um vetor em branco sendo criado para então ter seus componentes adicionados. Neste exemplo introduzimos o método indexes(), que retorna a lista de índices do vetor.
 
 
 ```python
