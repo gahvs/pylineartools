@@ -1,11 +1,13 @@
-from pylineartools import Matrix
+from pylineartools import Matrix, MatrixComponent
 
-m = Matrix(2, 4)
-m.randomize(integer=True)
+m = Matrix()
 
-for line in m.numbers(): print(line)
-print()
+m.add(MatrixComponent(1, 1, 1))
+m.add(MatrixComponent(1, 2, 2))
+m.add(MatrixComponent(2, 1, 3))
+m.add(MatrixComponent(2, 2, 4))
 
-transposed = m.transpose()
-for line in transposed.numbers(): print(line)
-print()
+mapping = m.map(function=lambda c: c ** 2)
+
+print(m.values())
+print(mapping.values())

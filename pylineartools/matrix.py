@@ -171,6 +171,17 @@ class Matrix:
             copy.add(MatrixComponent(i['row'], i['col'], self.component(i['row'], i['col'])))
         return copy
 
+    def map(self, function=lambda _ : _) -> None:
+        """
+            Return the matrix resulting from applying a function to each component of the object.
+        """
+        mapped = Matrix()
+        for i in self.indexes():
+            r, c = i['row'], i['col']
+            mapped.add(MatrixComponent(r, c, function(self.component(r, c))))
+
+        return mapped
+
     def identity(self):
         """
             Returns the identity matrix of the matrix, if it is a square matrix.
