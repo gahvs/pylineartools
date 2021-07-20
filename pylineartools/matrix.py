@@ -171,7 +171,7 @@ class Matrix:
             copy.add(MatrixComponent(i['row'], i['col'], self.component(i['row'], i['col'])))
         return copy
 
-    def map(self, function=lambda _ : _) -> None:
+    def map(self, function=lambda _ : _):
         """
             Return the matrix resulting from applying a function to each component of the object.
         """
