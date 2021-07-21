@@ -235,7 +235,7 @@ class Matrix:
                 restriction.add(MatrixComponent(row, col, self.__matrix[row][col]))
         return restriction
     
-    def multiplyByEscalar(self, escalar):
+    def multiplyByEscalar(self, escalar) -> None:
         """
             Multiplies each component of the matrix by a scalar.
         """
@@ -243,7 +243,7 @@ class Matrix:
             for col in self.__cols:
                 self.__matrix[row][col] *= escalar
     
-    def divideByEscalar(self, escalar):
+    def divideByEscalar(self, escalar) -> None:
         """
             Divides each component of the matrix by a scalar.
         """

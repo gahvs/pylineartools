@@ -1,19 +1,5 @@
-from pylineartools import Matrix, MatrixComponent
+from pylineartools import *
 
-def inline(m):
-    for line in m.values():
-        print(line)
-    print()
+v = Vector(1, 2, 3, 4, 5)
 
-m = Matrix()
-
-m.add(MatrixComponent(1, 1, 1))
-m.add(MatrixComponent(1, 2, 2))
-m.add(MatrixComponent(2, 1, 3))
-m.add(MatrixComponent(2, 2, 4))
-m2 = m.copy()
-
-inline(m)
-inline(m2)
-inline(Matrix.hadamard(m, m2))
-inline(Matrix.sum(m, m2))
+print(v.map(lambda x: x**2).values())

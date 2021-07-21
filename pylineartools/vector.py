@@ -120,15 +120,23 @@ class Vector:
         for k in self.__vector:
             self.__vector[k] /= escalar
     
-    @staticmethod
-    def copy(vector):
+    def copy(self):
         """
             Returns a copy, of the vector
         """
         copy = Vector()
-        for k, v in vector.vector().items():
+        for k, v in self.vector().items():
             copy.add(component=VectorComponent(index=k, number=v))
         return copy
+    
+    def map(self, function=lambda _ : _):
+        """
+            Return the vector resulting from applying a function to each component of the object.
+        """
+        mapped = Vector()
+        for k, v in self.vector().items():
+            mapped.add(VectorComponent(k, function(v)))
+        return mapped
 
     @staticmethod
     def equalIndexSet(vec_x, vec_y) -> bool:
@@ -192,3 +200,4 @@ class Vector:
         """
         v_x, v_y = vec_x.vector(), vec_y.vector()
         return reduce(lambda v, v_ : v + v_, [v_x[k] * v_y[k] for k in vec_x.indexes()])    
+    
