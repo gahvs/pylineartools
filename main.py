@@ -1,5 +1,6 @@
 from pylineartools import *
 
-v = Vector(1, 2, 3, 4, 5)
+m = Matrix.toMatrix(Vector([1, 2, 3, 4, 5]))
 
-print(v.map(lambda x: x**2).values())
+for line in m.values():
+    print(line)

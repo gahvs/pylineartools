@@ -1,5 +1,6 @@
 from copy import deepcopy
 from random import randint, random
+from .vector import Vector, VectorComponent
 
 class MatrixComponent:
 
@@ -72,8 +73,7 @@ class Matrix:
             if operation == "*": return mat_x.component(r,c) * mat_y.component(r,c)
         
         result = Matrix()
-        for i in mat_x.indexes():
-            r, c = i['row'], i['col']
+        for r, c in map(lambda i: (i['row'], i['col']), mat_x.indexes()):
             result.add(MatrixComponent(r, c, makeOperation(r,c)))
         return result
 
@@ -193,8 +193,7 @@ class Matrix:
             Return the matrix resulting from applying a function to each component of the object.
         """
         mapped = Matrix()
-        for i in self.indexes():
-            r, c = i['row'], i['col']
+        for r, c in map(lambda i: (i['row'], i['col']), self.indexes()):
             mapped.add(MatrixComponent(r, c, function(self.component(r, c))))
 
         return mapped
@@ -205,11 +204,11 @@ class Matrix:
         """
         if len(self.__rows) == len(self.__cols):
             identity = Matrix()
-            for i in self.indexes():
-                if i['row'] == i['col']:
-                    identity.add(MatrixComponent(i['row'], i['col'], 1))
+            for r, c in map(lambda i: (i['row'], i['col']), self.indexes()):
+                if r == c:
+                    identity.add(MatrixComponent(r, c, 1))
                 else:
-                    identity.add(MatrixComponent(i['row'], i['col'], 0))
+                    identity.add(MatrixComponent(r, c, 0))
             return identity
 
     def transpose(self):
@@ -217,8 +216,7 @@ class Matrix:
             Returns a matrix transposition.
         """
         transposed = self.copy()
-        for i in self.indexes():
-            r, c = i['row'], i['col']
+        for r, c in map(lambda i: (i['row'], i['col']), self.indexes()):
             transposed.__matrix[c][r] = self.__matrix[r][c]
         return transposed
 
@@ -250,6 +248,29 @@ class Matrix:
         for row in self.__rows:
             for col in self.__cols:
                 self.__matrix[row][col] /= escalar
+
+    def toVector(self):
+        """
+            Return a Vector() object with all the components of the array, in the order they were added.
+        """
+        v, i_ = Vector(), 1
+        for r, c in map(lambda i: (i['row'], i['col']), self.indexes()):
+            v.add(VectorComponent(i_, self.component(r, c)))
+            i_ += 1
+        return v
+
+    @staticmethod
+    def toMatrix(vector):
+        """
+            Returns a Matrix( len(vector), 1) with the vector's components.
+        """
+        if not isinstance(vector, Vector):
+            raise TypeError("The Vector must be an instance of Vector().")
+        else:
+            m = Matrix(len(vector.values()), 1)
+            for i, v in zip(vector.indexes(), vector.values()):
+                m.change(i, 1, v)
+            return m
 
     @staticmethod
     def sum(mat_x, mat_y):
