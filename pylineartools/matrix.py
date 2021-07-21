@@ -60,6 +60,23 @@ class Matrix:
                 if not col in self.__matrix[row]:
                     self.__matrix[row][col] = None
 
+    @classmethod
+    def __genericIteration(cls, mat_x, mat_y, operation):
+        """
+            Performs a generic iteration over two matrices of the same dimensions and produces 
+            a matrix resulting from the operation passed as argument.
+        """
+        def makeOperation(r, c):
+            if operation == "+": return mat_x.component(r,c) + mat_y.component(r,c)
+            if operation == "-": return mat_x.component(r,c) - mat_y.component(r,c)
+            if operation == "*": return mat_x.component(r,c) * mat_y.component(r,c)
+        
+        result = Matrix()
+        for i in mat_x.indexes():
+            r, c = i['row'], i['col']
+            result.add(MatrixComponent(r, c, makeOperation(r,c)))
+        return result
+
     def add(self, component) -> None:
         """
             Adds a component to the array. The parameter must be an instance of MatrixComponent().
@@ -233,6 +250,43 @@ class Matrix:
         for row in self.__rows:
             for col in self.__cols:
                 self.__matrix[row][col] /= escalar
+
+    @staticmethod
+    def sum(mat_x, mat_y):
+        """
+            Returns the sum of two matrices.
+        """
+        if mat_x.dimensions() == mat_y.dimensions():
+            sum = Matrix.__genericIteration(mat_x, mat_y, operation="+")
+            return sum
+        else:
+            raise IndexError("the matrices must have the same dimensions to calculate the sum")
+
+    @staticmethod
+    def subtr(mat_x, mat_y):
+        """
+            Returns the subtraction of two matrices.
+        """
+        if mat_x.dimensions() == mat_y.dimensions():
+            subtr = Matrix.__genericIteration(mat_x, mat_y, operation="-")
+            return subtr
+        else:
+            raise IndexError("the matrices must have the same dimensions to calculate the subtraction")
+    
+    @staticmethod
+    def hadamard(mat_x, mat_y):
+        """
+            Returns the hadamard product of two matrices or none . 
+            In mathematics, Hadamard's product is a binary operation that 
+            takes two matrices of the same dimensions and produces another matrix 
+            of the same dimension of the operands, 
+            where each element i, j is the product of the elements i, j of the two original matrices.
+        """
+        if mat_x.dimensions() == mat_y.dimensions():
+            hadamard = Matrix.__genericIteration(mat_x, mat_y, operation="*")
+            return hadamard
+        else:
+            raise IndexError("the matrices must have the same dimensions to calculate the Hadamard Product")
 
     @staticmethod
     def product(mat_x, mat_y):
