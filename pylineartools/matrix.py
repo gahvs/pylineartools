@@ -101,7 +101,7 @@ class Matrix:
         except TypeError:
             pass
     
-    def change(self, row, col, value) -> None:
+    def set(self, row, col, value) -> None:
         """
             Change the value of matrix[row][col] if row and col 
             are part of the set of row indices and column indices, respectively.
@@ -217,7 +217,7 @@ class Matrix:
         """
         transposed = self.copy()
         for r, c in map(lambda i: (i['row'], i['col']), self.indexes()):
-            transposed.__matrix[c][r] = self.__matrix[r][c]
+            transposed.set(r, c, self.__matrix[r][c])
         return transposed
 
     def restriction(self, rowPart, colPart):
@@ -269,7 +269,7 @@ class Matrix:
         else:
             m = Matrix(len(vector.values()), 1)
             for i, v in zip(vector.indexes(), vector.values()):
-                m.change(i, 1, v)
+                m.set(i, 1, v)
             return m
 
     @staticmethod
