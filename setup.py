@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'pylineartools',         
   packages = ['pylineartools'],   
-  version = '0.2.3',      
+  version = '0.2.4',      
   license='MIT',        
   description = 'Python Library for Linear Algebra Problems',   
   author = 'Gabriel Vinícius Souto Abreu',                   
