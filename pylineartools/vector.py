@@ -61,7 +61,7 @@ class Vector:
         except TypeError:
             pass
     
-    def change(self, index, value) -> None:
+    def set(self, index, value) -> None:
         """
             Change the value of vector[n] if n exists in vector.indexes
         """
